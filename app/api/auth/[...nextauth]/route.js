@@ -11,7 +11,7 @@ const handler = NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
-  callback: {
+  callbacks: {
     async session({ session }) {
       const sessionUser = await User.findOne({
         email: session.user.email,
@@ -24,13 +24,13 @@ const handler = NextAuth({
       try {
         await connectToDB();
         // Check if user is already exist
-        const userExist = await User.findOne({ email: profile.email });
+        const userExist = await User.findOne({ email: profile?.email });
         // if not create a new user
         if (!userExist) {
           await User.create({
-            email: profile.email,
-            username: profile.name.replace(" ", "").toLowerCase(),
-            image: profile.picture,
+            email: profile?.email,
+            username: profile?.name.replace(/ /g, "").toLowerCase(),
+            image: profile?.picture,
           });
         }
         return true;
