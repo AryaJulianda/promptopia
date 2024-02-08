@@ -42,7 +42,7 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }) => {
             name=""
             value={post.tag}
             onChange={(e) => setPost({ ...post, tag: e.target.value })}
-            placeholder="#tag"
+            placeholder="example : code, mobile, design"
             required
             className="form_input"
           />
